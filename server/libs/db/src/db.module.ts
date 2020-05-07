@@ -10,11 +10,12 @@ const models = TypegooseModule.forFeature([User,Course,Episode])
 @Global()
 @Module({
   imports: [
-    TypegooseModule.forRoot('mongodb://localhost/demo01', {
+    TypegooseModule.forRoot('mongodb://root:root@47.105.167.227:27017/demo01', {
       useCreateIndex: true,
       useNewUrlParser: true,
       useFindAndModify: false,
       useUnifiedTopology: true,
+      authSource: 'admin'
     }),
     models
   ],
