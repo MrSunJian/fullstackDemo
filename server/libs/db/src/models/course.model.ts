@@ -4,7 +4,8 @@ import { Episode } from './episode.model'
 
 @modelOptions({
     schemaOptions:{
-        timestamps: true
+        timestamps: true,
+        toJSON: { virtuals: true },
     }
 })
 export class Course {
@@ -17,6 +18,6 @@ export class Course {
     cover: string
 
     @ApiProperty({description: '课时'})
-    @arrayProp({ items: Episode})
+    @arrayProp({ ref: Episode})
     episodes: Ref<Episode>[]
 }
