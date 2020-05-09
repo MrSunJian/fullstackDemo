@@ -1,0 +1,50 @@
+<template>
+  <div>
+    <h3>{{ isNew ? "创建" : "编辑" }}课程</h3>
+    <ele-form
+      v-model="data"
+      :form-desc="fields"
+      :request-fn="submit"
+    ></ele-form>
+  </div>
+</template>
+
+<script lang="ts">
+import { Vue, Component, Prop } from "vue-property-decorator";
+
+@Component({})
+export default class CourseEdit extends Vue {
+  @Prop(String) id!: string;
+
+  data = {};
+
+  get isNew() {
+    return !this.id;
+  }
+
+  fields = {
+    name: { label: "课程名称", type: "input" },
+    cover: { label: "课程封面", type: "input" },
+  };
+
+  async fetch() {
+    const res = await this.$http.get("courses");
+    this.data = res.data;
+  }
+
+  async submit(data) {
+    console.log(data);
+
+    // this.data = {}
+    // await this.$http.post('courses',data)
+    // this.$message.success('保存成功')
+    // this.$router.go(-1)
+  }
+
+  created() {
+    // this.fetch()
+  }
+}
+</script>
+
+<style></style>

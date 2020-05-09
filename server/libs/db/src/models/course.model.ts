@@ -18,6 +18,6 @@ export class Course {
     cover: string
 
     @ApiProperty({description: '课时'})
-    @arrayProp({ ref: Episode})
-    episodes: Ref<Episode>[]
+    @arrayProp({ items: String})
+    episodes: String[]
 }
