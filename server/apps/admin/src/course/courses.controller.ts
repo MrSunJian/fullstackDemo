@@ -32,7 +32,8 @@ export class CoursesController {
           label: '课程封面图',
           type: 'upload',
           listType: 'picture-img',
-          action: 'upload'
+          action: 'upload',
+          width: 120
         },
       ],
     };

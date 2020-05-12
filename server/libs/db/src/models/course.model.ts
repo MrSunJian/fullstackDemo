@@ -16,8 +16,4 @@ export class Course {
     @ApiProperty({description: '封面'})
     @prop()
     cover: string
-
-    @ApiProperty({description: '课时'})
-    @arrayProp({ items: String})
-    episodes: String[]
 }
