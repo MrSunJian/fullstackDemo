@@ -16,4 +16,11 @@ export class Course {
     @ApiProperty({description: '封面'})
     @prop()
     cover: string
+
+    @arrayProp({
+        ref: 'Episode',
+        localField: '_id',
+        foreignField: 'course'
+    })
+    episodes: Ref<Episode>[]
 }

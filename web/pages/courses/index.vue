@@ -1,20 +1,20 @@
 <template>
   <div class="pa-3">
-    <h3>课程列表</h3>
+    <h3>课程列表</h3> 
     <v-row>
-      <v-col v-for="item in courses" :key="item._id">
-        <v-card class="mx-auto" max-width="400">
+      <v-col md="4" v-for="item in courses" :key="item._id">
+        <v-card :to="`/courses/${item._id}`" class="mx-auto" max-width="400">
           <v-img
             class="white--text align-end"
             height="200px"
-            src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            :src="item.cover"
           >
-            <v-card-title>Top 10 Australian beaches</v-card-title>
+            <v-card-title>{{item.name}}</v-card-title>
           </v-img>
 
-          <v-card-subtitle class="pb-0">Number 10</v-card-subtitle>
+          <v-card-subtitle class="pb-0">{{item.createdAt}}</v-card-subtitle>
 
-          <v-card-text class="text--primary">
+          <!-- <v-card-text class="text--primary">
             <div>Whitehaven Beach</div>
 
             <div>Whitsunday Island, Whitsunday Islands</div>
@@ -28,7 +28,7 @@
             <v-btn color="orange" text>
               Explore
             </v-btn>
-          </v-card-actions>
+          </v-card-actions> -->
         </v-card>
       </v-col>
     </v-row>
@@ -40,7 +40,7 @@ export default {
   async asyncData({ $axios }) {
     const data = await $axios.$get('courses')
     return {
-        courses: data.courses
+        courses: data.data
     }
   }
 }
