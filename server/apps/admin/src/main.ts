@@ -10,8 +10,8 @@ async function bootstrap() {
     prefix: '/uploads'
   })
   const options = new DocumentBuilder()
-  .setTitle('个人项目demo')
-  .setDescription('后台管理api')
+  .setTitle('个人项目demo-后台管理api')
+  .setDescription('后台管理api，供管理平台使用')
   .setVersion('1.0')
   .build();
   const document = SwaggerModule.createDocument(app, options);

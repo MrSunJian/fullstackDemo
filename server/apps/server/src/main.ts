@@ -7,9 +7,10 @@ async function bootstrap() {
   app.enableCors()
 
   const options = new DocumentBuilder()
-  .setTitle('个人项目demo')
-  .setDescription('后台管理api')
+  .setTitle('个人项目demo-前端api')
+  .setDescription('前端api，供前端调用')
   .setVersion('1.0')
+  .addBearerAuth()
   .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api-docs', app, document);
