@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Get, UseGuards, Req } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiProperty, ApiBearerAuth } from '@nestjs/swagger';
 import { InjectModel } from 'nestjs-typegoose';
-import { User } from '@libs/db/models/user.model';
+import { User, UserDocument } from '@libs/db/models/user.model';
 import { ReturnModelType, DocumentType } from '@typegoose/typegoose';
 import { AuthGuard } from '@nestjs/passport';
 import { LoginDto } from './dto/login.dto';
@@ -34,7 +34,12 @@ export class AuthController {
     @Post('login')
     @ApiOperation({summary: '登录'})
     @UseGuards(AuthGuard('local'))
-    async login(@Body() dto:LoginDto, @CurrentUser() user: DocumentType<User>){
+    // 这个写法 CurrentUser自定义装饰器有问题
+    // async login(@Body() dto:LoginDto, @CurrentUser() user: DocumentType<User>){
+    //     return {token: this.jwtservice.sign(String(user._id))}
+    // }
+
+    async login(@Body() dto:LoginDto, @CurrentUser() user: UserDocument){
         return {token: this.jwtservice.sign(String(user._id))}
     }
 
@@ -42,7 +47,7 @@ export class AuthController {
     @ApiOperation({summary: '获取用户信息'})
     @UseGuards(AuthGuard('jwt'))
     @ApiBearerAuth()
-    async user(@CurrentUser() user: DocumentType<User>){
+    async user(@CurrentUser() user: UserDocument){
         return user
     }
 }

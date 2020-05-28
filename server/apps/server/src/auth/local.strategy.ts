@@ -7,7 +7,7 @@ import { BadRequestException } from '@nestjs/common'
 import {compareSync} from 'bcryptjs'
 
 // (Strategy,'local')   local表示策略名
-export class LocalStrategy extends PassportStrategy(Strategy,'local'){
+export class LocalStrategy extends PassportStrategy(Strategy){
     constructor(
         @InjectModel(User) private userModel: ReturnModelType<typeof User>
     ){

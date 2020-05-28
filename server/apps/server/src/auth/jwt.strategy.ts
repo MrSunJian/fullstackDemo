@@ -5,8 +5,8 @@ import { User } from '@libs/db/models/user.model'
 import { ReturnModelType } from '@typegoose/typegoose'
 
 
-// (Strategy,'local')   local表示策略名
-export class JwtStrategy extends PassportStrategy(Strategy,'jwt'){
+// (Strategy,'jwt')   jwt表示策略名
+export class JwtStrategy extends PassportStrategy(Strategy){
     constructor(
         @InjectModel(User) private userModel: ReturnModelType<typeof User>
     ){
@@ -17,6 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy,'jwt'){
     }
 
     async validate(id){
-       return await this.userModel.findById(id)
+        console.log(`id:${id}`)
+        return await this.userModel.findById(id)
     }
 }

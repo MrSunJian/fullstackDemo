@@ -39,12 +39,12 @@
         </v-list>
         <v-list-item
           class="mt-4"
-          link
+          @click="isShowLoginForm"
         >
           <v-list-item-action>
-            <v-icon color="grey darken-1">mdi-plus-circle-outline</v-icon>
+            <v-icon color="grey darken-1">mdi-lock</v-icon>
           </v-list-item-action>
-          <v-list-item-title class="grey--text text--darken-1">Browse Channels</v-list-item-title>
+          <v-list-item-title class="grey--text text--darken-1">登录</v-list-item-title>
         </v-list-item>
         <v-list-item link>
           <v-list-item-action>
@@ -90,6 +90,13 @@
     <v-content>
       <nuxt-child />
     </v-content>
+    <v-bottom-sheet insert v-model="isShowLoginForm">
+      <v-form class="pa-4" @submit.prevent="login">
+        <v-text-field v-model="loginModel.username" label="用户名"></v-text-field>
+        <v-text-field v-model="loginModel.password" label="密码" type="password"></v-text-field>
+        <v-btn color="success" type="submit">登录</v-btn>
+      </v-form>
+    </v-bottom-sheet>
   </v-app>
 </template>
 
@@ -100,6 +107,8 @@
     },
     data: () => ({
       drawer: null,
+      isShowLoginForm: true,
+      loginModel:{},
       items: [
         { icon: 'home', text: '首页', link: '/' },
         { icon: 'mdi-trending-up', text: '热门课程', link: '/courses' },
@@ -113,6 +122,15 @@
         { picture: 78, text: 'MKBHD' },
       ],
     }),
+    methods: {
+      async login(){
+        await this.$auth.loginWith('local',{
+          data: this.loginModel
+        })
+        console.log('登录成功')
+        this.isShowLoginForm = false
+      }
+    },
     created () {
       this.$vuetify.theme.dark = true
     },
